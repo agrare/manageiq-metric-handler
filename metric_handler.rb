@@ -31,8 +31,8 @@ class MetricsHandler
     start_time = Time.now
     payload = msg.payload
 
-    ems_id = payload[:ems_id]
-    ems_ref = payload[:ems_ref]
+    ems_id = payload["ems_id"]
+    ems_ref = payload["ems_ref"]
     
     obj = find_object(ems_id, ems_ref)
     if obj.nil?
@@ -40,11 +40,11 @@ class MetricsHandler
       return
     end
 
-    interval_name  = payload[:interval_name]
-    counters       = payload[:counters]
-    counter_values = payload[:counter_values]
-    start_range    = payload[:start_range] || counter_values.keys.min
-    end_range      = payload[:end_range]   || counter_values.keys.max
+    interval_name  = payload["interval_name"]
+    counters       = payload["counters"]
+    counter_values = payload["counter_values"]
+    start_range    = payload["start_range"] || counter_values.keys.min
+    end_range      = payload["end_range"]   || counter_values.keys.max
 
 
     print "metrics ems[#{"%3d" % ems_id}].vms[#{ "%9s" % ems_ref}] -- #{interval_name} #{start_range} - #{end_range}"
